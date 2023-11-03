@@ -1,0 +1,24 @@
+SELECT U_agent,C1.cardname,t0.docentry,
+((Select Round(Sum(isnull(U_ERPBookQTY,0)+Quantity),0) 
+from QUT1 Inner Join OITM on qut1.Itemcode = OITM.ItemCode where OITM.U_Category = 'T.Shirt F/S' and QUT1.docentry = t0.DocEntry and OITM.U_subcat in ('Mercerised','Stripe /Jacquard')))'T.Shirt F/S Stripped' ,
+((Select Round(Sum(isnull(U_ERPBookQTY,0)+Quantity),0) 
+from QUT1 Inner Join OITM on qut1.Itemcode = OITM.ItemCode where OITM.U_Category = 'T.Shirt F/S' and QUT1.docentry = t0.DocEntry and OITM.U_subcat in ('Flat-Knit','Knitted Designer')))'T.Shirt F/S Designer' ,
+(Select Round(Sum(isnull(U_ERPBookQTY,0)+Quantity),0) 
+from QUT1 Inner Join OITM on qut1.Itemcode = OITM.ItemCode where OITM.U_Category = 'T.Shirt F/S' and QUT1.docentry = t0.DocEntry and OITM.U_subcat Like '%Regular%')'T.Shirt F/S Regular' ,
+((Select Round(Sum(isnull(U_ERPBookQTY,0)+Quantity),0) 
+from QUT1 Inner Join OITM on qut1.Itemcode = OITM.ItemCode where OITM.U_Category = 'T.Shirt H/S' and QUT1.docentry = t0.DocEntry and OITM.U_subcat in ('Mercerised','Stripe /Jacquard')))'T.Shirt H/S Stripped',
+((Select Round(Sum(isnull(U_ERPBookQTY,0)+Quantity),0) 
+from QUT1 Inner Join OITM on qut1.Itemcode = OITM.ItemCode where OITM.U_Category = 'T.Shirt H/S' and QUT1.docentry = t0.DocEntry and OITM.U_subcat in ('Flat-Knit','Knitted Designer')))'T.Shirt H/S Designer' ,
+(Select Round(Sum(isnull(U_ERPBookQTY,0)+Quantity),0) 
+from QUT1 Inner Join OITM on qut1.Itemcode = OITM.ItemCode where OITM.U_Category = 'T.Shirt H/S' and QUT1.docentry = t0.DocEntry and OITM.U_subcat Like '%Regular%')'T.Shirt H/S Regular' ,
+(Select Round(Sum(isnull(U_ERPBookQTY,0)+Quantity),0) 
+from QUT1 Inner Join OITM on qut1.Itemcode = OITM.ItemCode where OITM.U_Category = 'T.Shirt H/S' and QUT1.docentry = t0.DocEntry and OITM.U_subcat in ('Designer',''))'T.Shirt H/S Regular',
+
+(Select Round(Sum(isnull(U_ERPBookQTY,0)+Quantity),0) 
+from QUT1 Inner Join OITM on qut1.Itemcode = OITM.ItemCode where OITM.U_Category = 'T.Shirt H/S' and QUT1.docentry = t0.DocEntry)
+from OQUT t0
+Inner Join QUT1 t1 on t0.Docentry = t1.DocEntry
+Inner Join OITM o on t1.Itemcode = o.ItemCode
+Inner Join OCRD C1 on C1.CardCode = t0.U_PartyCode
+Where U_Agent = 'Amarjit Singh & Sons'
+Group by U_agent,C1.cardname,t0.DocEntry
